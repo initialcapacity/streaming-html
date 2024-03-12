@@ -1,0 +1,83 @@
+body {
+    min-height: 100vh;
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) 1fr var(--footer-height);
+    grid-template-areas: 'header'
+                         'main'
+                         'footer';
+}
+
+body > header {
+    color: var(--header-text-color);
+    background-color: var(--header-background-color);
+    grid-area: header;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--body-padding);
+}
+
+body > header ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+body > header li {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+body > header svg {
+    width: 4rem;
+    height: 3rem;
+    flex-shrink: 0;
+    --icon-color: var(--header-text-color);
+}
+
+body > header h1 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+main {
+    grid-area: main;
+    min-width: 13rem;
+}
+
+section {
+    padding: var(--body-padding);
+}
+
+section:not(:last-child) {
+    border-bottom: 1px solid var(--weak-border-color);
+}
+
+footer {
+    padding: var(--body-padding);
+    grid-area: footer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    color: var(--inverted-text-color);
+    background-color: var(--inverted-background-color);
+    background-image: var(--inverted-ic-logo);
+    background-repeat: no-repeat;
+    background-position: right var(--body-padding) bottom var(--body-padding);
+}
+
+footer a, footer a:visited {
+    color: var(--inverted-text-color);
+}
+
+footer li {
+    margin-bottom: .5rem;
+}

@@ -1,0 +1,22 @@
+{{- template "start" .}}
+{{- define "main"}}
+    <template shadowrootmode="open">
+        {{- template "styles" .}}
+
+        <section>
+            <h1>Go streaming</h1>
+
+            <p>
+                An example showing
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/body">streaming responses</a> to the
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/mode">Shadow DOM</a> from a Go
+                server. Enables async DOM updates with no Javascript needed!
+            </p>
+        </section>
+        <section>
+            <slot name="content">
+                <h2>Wait for it...</h2>
+            </slot>
+        </section>
+    </template>
+{{- end}}

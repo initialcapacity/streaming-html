@@ -1,0 +1,61 @@
+{{- define "styles"}}
+    <link rel="stylesheet" href="/static/style/reset.css">
+    <link rel="stylesheet" href="/static/style/theme.css">
+    <link rel="stylesheet" href="/static/style/typography.css">
+    <link rel="stylesheet" href="/static/style/layout.css">
+{{- end }}
+
+{{- define "start"}}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {{- template "styles" .}}
+
+    <link rel="icon" href="/static/images/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/static/images/favicon.svg" sizes="any" type="image/svg+xml"/>
+
+    <title>Go streaming</title>
+</head>
+<body>
+<header>
+    <ul>
+        <li>
+            <svg>
+                <use xlink:href="/static/images/icons.svg#logo"></use>
+            </svg>
+        </li>
+        <li>
+            <h1>Go Streaming</h1>
+        </li>
+    </ul>
+</header>
+<footer>
+    <ul>
+        <li><a href="https://github.com/initialcapacity/go-streaming">View on GitHub</a></li>
+        <li><a href="https://initialcapacity.io">Initial Capacity</a></li>
+    </ul>
+    <span>
+        <script>document.write("&copy;" + new Date().getFullYear());</script>
+        Initial Capacity, Inc.
+    </span>
+</footer>
+
+<main>
+    {{- template "main" .}}
+{{- end}}
+
+{{- define "end"}}
+</main>
+</body>
+</html>
+{{- end}}
+
+{{- define "base"}}
+    {{- template "start" .}}
+    {{- template "end" .}}
+{{- end}}

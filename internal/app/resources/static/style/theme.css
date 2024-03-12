@@ -1,0 +1,39 @@
+:root {
+    --white: #FFFFFF;
+    --light-gray: #EDEDED;
+    --dark-gray: #4D4D4D;
+    --black: #333333;
+    --primary: hsl(161, 77%, 33%);
+
+    --text-color: var(--black);
+    --icon-color: var(--black);
+    --link-color: var(--primary);
+    --background-color: var(--white);
+
+    --header-background-color: var(--primary);
+    --header-text-color: var(--white);
+
+    --weak-border-color: var(--light-gray);
+
+    --inverted-background-color: var(--dark-gray);
+    --inverted-text-color: var(--white);
+
+    --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+
+    --header-height: 5rem;
+    --body-padding: 2rem;
+    --footer-height: 16rem;
+
+    --inverted-ic-logo: url("../images/ic-logo-white.svg");
+}
+
+html {
+    accent-color: var(--primary);
+}
+
+@media screen and (max-width: 800px) {
+    :root {
+        --header-height: 4rem;
+        --body-padding: 1rem;
+    }
+}
