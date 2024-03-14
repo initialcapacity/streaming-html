@@ -1,8 +1,8 @@
-# Go streaming
+# Streaming HTML
 
 An example showing [streaming responses](https://developer.mozilla.org/en-US/docs/Web/API/Response/body) to the
 [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/mode) from a Go server.
-Enables async DOM updates with no Javascript needed!
+Enables asynchronous DOM updates with no Javascript needed!
 
 ## Test
 

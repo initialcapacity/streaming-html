@@ -18,6 +18,6 @@ func TestIndex(t *testing.T) {
 
 	body, err := io.ReadAll(response.Body)
 	assert.NoError(t, err)
-	assert.Contains(t, string(body), "Go streaming")
+	assert.Contains(t, string(body), "Streaming HTML")
 	assert.Contains(t, string(body), "Success!")
 }
