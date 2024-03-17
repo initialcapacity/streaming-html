@@ -3,19 +3,30 @@ package websupport
 import (
 	"fmt"
 	"html/template"
-	"io"
 	"io/fs"
 	"net/http"
 )
 
-func Render(writer io.Writer, resources fs.FS, templateName string, data any) {
-	_ = template.Must(template.New(fmt.Sprintf("%s.gohtml", templateName)).ParseFS(
-		resources,
-		"resources/templates/template.gohtml",
-		fmt.Sprintf("resources/templates/%s.gohtml", templateName),
-	)).Execute(writer, data)
+func Render(writer http.ResponseWriter, resources fs.FS, templateName string, data any) {
+	fileName := fmt.Sprintf("%s.gohtml", templateName)
+	functions := template.FuncMap{
+		"flush": func() string {
+			flush(writer)
+			return ""
+		},
+	}
+	temp := template.Must(template.New(fileName).
+		Funcs(functions).
+		ParseFS(
+			resources,
+			"resources/templates/template.gohtml",
+			fmt.Sprintf("resources/templates/%s", fileName),
+		))
+
+	_ = temp.Execute(writer, data)
+	flush(writer)
 }
 
-func Flush(writer http.ResponseWriter) {
+func flush(writer http.ResponseWriter) {
 	writer.(http.Flusher).Flush()
 }

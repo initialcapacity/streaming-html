@@ -8,7 +8,7 @@ import (
 
 func Index(addArtificialDelay bool) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		c := make(chan []string)
+		data := make(chan []string)
 
 		go func() {
 			if addArtificialDelay {
@@ -19,16 +19,10 @@ func Index(addArtificialDelay bool) http.HandlerFunc {
 				"It took a while to load.",
 				"And didn't use any javascript.",
 			}
-			c <- items
-			websupport.Flush(w)
-			close(c)
+			data <- items
+			close(data)
 		}()
 
-		go func() {
-			time.Sleep(10 * time.Millisecond)
-			websupport.Flush(w)
-		}()
-
-		websupport.Render(w, Resources, "index", c)
+		websupport.Render(w, Resources, "index", data)
 	}
 }
