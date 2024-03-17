@@ -1,4 +1,4 @@
-{{- template "start" .}}
+{{- template "base" .}}
 {{- define "main"}}
     <template shadowrootmode="open">
         {{- template "styles" .}}
@@ -19,4 +19,17 @@
             </slot>
         </section>
     </template>
+    {{ range $items := . }}
+        <div slot="content">
+            <h2>
+                Success!
+            </h2>
+
+            <ul class="bulleted">
+                {{range $item := $items}}
+                    <li>{{$item}}</li>
+                {{end}}
+            </ul>
+        </div>
+    {{end}}
 {{- end}}
