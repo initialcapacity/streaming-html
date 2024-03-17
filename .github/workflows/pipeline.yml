@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+      - name: Run tests
+        run: go test -race ./...
+      - name: Build app
+        run: go build cmd/app/app.go
+      - name: Save artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: app
