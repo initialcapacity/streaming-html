@@ -7,12 +7,12 @@ import (
 	"net/http"
 )
 
-func Render(writer http.ResponseWriter, resources fs.FS, templateName string, data any) {
+func Render(writer http.ResponseWriter, resources fs.FS, templateName string, data any) error {
 	fileName := fmt.Sprintf("%s.gohtml", templateName)
 	functions := template.FuncMap{
-		"flush": func() string {
-			flush(writer)
-			return ""
+		"flush": func() (string, error) {
+			err := flush(writer)
+			return "", err
 		},
 	}
 	temp := template.Must(template.New(fileName).
@@ -23,10 +23,14 @@ func Render(writer http.ResponseWriter, resources fs.FS, templateName string, da
 			fmt.Sprintf("resources/templates/%s", fileName),
 		))
 
-	_ = temp.Execute(writer, data)
-	flush(writer)
+	err := temp.Execute(writer, data)
+	if err != nil {
+		return err
+	}
+
+	return flush(writer)
 }
 
-func flush(writer http.ResponseWriter) {
-	writer.(http.Flusher).Flush()
+func flush(writer http.ResponseWriter) error {
+	return http.NewResponseController(writer).Flush()
 }

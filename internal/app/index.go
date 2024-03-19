@@ -22,6 +22,6 @@ func Index(addArtificialDelay bool) http.HandlerFunc {
 			close(data)
 		}()
 
-		websupport.Render(w, Resources, "index", data)
+		_ = websupport.Render(w, Resources, "index", data)
 	}
 }
