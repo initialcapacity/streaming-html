@@ -1,10 +1,3 @@
-{{- define "styles"}}
-    <link rel="stylesheet" href="/static/style/reset.css">
-    <link rel="stylesheet" href="/static/style/theme.css">
-    <link rel="stylesheet" href="/static/style/typography.css">
-    <link rel="stylesheet" href="/static/style/layout.css">
-{{- end }}
-
 {{- define "base"}}
     <!doctype html>
     <html lang="en">
@@ -14,7 +7,7 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        {{- template "styles" .}}
+        <link rel="stylesheet" href="/static/style/application.css">
 
         <link rel="icon" href="/static/images/favicon.ico" sizes="48x48">
         <link rel="icon" href="/static/images/favicon.svg" sizes="any" type="image/svg+xml"/>
