@@ -8,7 +8,7 @@ import (
 
 func main() {
 	host := websupport.EnvironmentVariable("HOST", "")
-	port := websupport.IntegerEnvironmentVariable("PORT", 8777)
+	port := websupport.EnvironmentVariable("PORT", 8777)
 
 	server := websupport.NewServer(app.Handlers(true))
 

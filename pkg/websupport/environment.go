@@ -5,20 +5,28 @@ import (
 	"strconv"
 )
 
-func EnvironmentVariable(variableName string, defaultValue string) string {
-	value, found := os.LookupEnv(variableName)
-	if found {
-		return value
-	} else {
-		return defaultValue
-	}
+type intOrString interface {
+	int | string
 }
 
-func IntegerEnvironmentVariable(variableName string, defaultValue int) int {
-	value, err := strconv.Atoi(os.Getenv(variableName))
-	if err != nil {
+func EnvironmentVariable[T intOrString](variableName string, defaultValue T) T {
+	value, found := os.LookupEnv(variableName)
+	if !found {
 		return defaultValue
 	}
 
-	return value
+	var result T
+
+	switch typedReference := any(&result).(type) {
+	case *string:
+		*typedReference = value
+	case *int:
+		i, err := strconv.Atoi(value)
+		if err != nil {
+			return defaultValue
+		}
+		*typedReference = i
+	}
+
+	return result
 }
