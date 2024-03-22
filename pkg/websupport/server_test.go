@@ -18,7 +18,7 @@ func TestCreate(t *testing.T) {
 		})
 	})
 
-	port, _ := server.Start(0)
+	port, _ := server.Start("localhost", 0)
 	err := server.WaitUntilHealthy("/")
 	assert.NoError(t, err)
 	defer func(server *websupport.Server) {

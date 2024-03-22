@@ -27,8 +27,8 @@ func NewServer(handlers Handlers) *Server {
 	}
 }
 
-func (s *Server) Start(port int) (listenerPort int, done chan error) {
-	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+func (s *Server) Start(host string, port int) (listenerPort int, done chan error) {
+	listen, err := net.Listen("tcp", fmt.Sprintf("%s:%d", host, port))
 	if err != nil {
 		done <- err
 		return 0, done
@@ -39,7 +39,7 @@ func (s *Server) Start(port int) (listenerPort int, done chan error) {
 	}()
 
 	listenerPort = listen.Addr().(*net.TCPAddr).Port
-	slog.Info("Server started", "address", fmt.Sprintf("http://localhost:%d", listenerPort))
+	slog.Info("Server started", "address", fmt.Sprintf("http://%s:%d", host, listenerPort))
 	s.port = listenerPort
 	return listenerPort, done
 }

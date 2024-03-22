@@ -9,7 +9,7 @@ import (
 func StartTestServer(t *testing.T, handlers websupport.Handlers) (string, *websupport.Server) {
 	server := websupport.NewServer(handlers)
 
-	port, _ := server.Start(0)
+	port, _ := server.Start("localhost", 0)
 	err := server.WaitUntilHealthy("/health")
 	if err != nil {
 		t.Errorf("unable to start server: %s", err)

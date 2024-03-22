@@ -9,7 +9,7 @@ import (
 
 func TestHealth(t *testing.T) {
 	server := websupport.NewServer(app.Handlers(false))
-	_, _ = server.Start(0)
+	_, _ = server.Start("localhost", 0)
 	err := server.WaitUntilHealthy("/health")
 	assert.NoError(t, err)
 }
