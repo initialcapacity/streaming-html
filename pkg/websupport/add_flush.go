@@ -24,8 +24,8 @@ func addFlushToCommands(node parse.Node) {
 		}
 	}
 
-	if ln, ok := node.(*parse.ListNode); ok {
-		for _, n := range ln.Nodes {
+	if listNode, ok := node.(*parse.ListNode); ok {
+		for _, n := range listNode.Nodes {
 			addFlushToCommands(n)
 		}
 	}
