@@ -19,7 +19,7 @@
             </slot>
         </section>
     </template>
-    {{ range $items := defer . }}
+    {{ range $items := . }}
         <div slot="content">
             <h2>
                 Success!
