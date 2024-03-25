@@ -17,13 +17,10 @@ func flushCommand(position parse.Pos) *parse.CommandNode {
 }
 
 func addFlushToCommands(node parse.Node) {
-	if pipeNode, ok := node.(*parse.PipeNode); ok {
-		pipeNode.Cmds = append(pipeNode.Cmds, flushCommand(pipeNode.Position()))
-	}
-
 	if templateNode, ok := node.(*parse.TemplateNode); ok {
-		if templateNode.Pipe != nil {
-			addFlushToCommands(templateNode.Pipe)
+		pipeNode := templateNode.Pipe
+		if pipeNode != nil {
+			pipeNode.Cmds = append(pipeNode.Cmds, flushCommand(pipeNode.Position()))
 		}
 	}
 
