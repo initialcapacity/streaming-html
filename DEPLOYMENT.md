@@ -80,3 +80,11 @@
         --format='table(bindings.role)' \
         --filter="bindings.members:github-service-account@${PROJECT_ID}.iam.gserviceaccount.com"
     ```
+    
+Repository variables for pipeline
+
+```shell
+GCP_PROJECT_ID=${PROJECT_ID}
+GCP_WORKLOAD_IDENTITY_POOL_ID=${WORKLOAD_IDENTITY_POOL_ID}
+GCP_SERVICE_ACCOUNT=github-service-account@${PROJECT_ID}.iam.gserviceaccount.com
+```
