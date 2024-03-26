@@ -49,4 +49,5 @@ jobs:
           gcloud run deploy streaming-html-app \
             --image gcr.io/${{ vars.GCP_PROJECT_ID }}/streaming-html/app:${{ github.sha }} \
             --region us-central1 \
+            --allow-unauthenticated \
             --platform managed
