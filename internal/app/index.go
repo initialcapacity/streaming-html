@@ -1,10 +1,15 @@
 package app
 
 import (
+	"github.com/initialcapacity/go-streaming/pkg/deferrable"
 	"github.com/initialcapacity/go-streaming/pkg/websupport"
 	"net/http"
 	"time"
 )
+
+type model struct {
+	Message deferrable.Defer[chan []string]
+}
 
 func Index(addArtificialDelay bool) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -22,6 +27,6 @@ func Index(addArtificialDelay bool) http.HandlerFunc {
 			close(data)
 		}()
 
-		_ = websupport.Render(w, Resources, "index", data)
+		_ = websupport.Render(w, Resources, "index", model{Message: deferrable.New(w, data)})
 	}
 }

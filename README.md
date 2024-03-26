@@ -7,7 +7,7 @@ Enables asynchronous DOM updates with no Javascript needed!
 ## Test
 
 ```shell
-go test ./...
+go test -race ./...
 ```
 
 ## Run
