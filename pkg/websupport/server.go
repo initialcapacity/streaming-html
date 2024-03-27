@@ -62,7 +62,7 @@ func (s *Server) WaitUntilHealthy(path string) error {
 		if code == http.StatusOK {
 			return nil
 		} else {
-			return fmt.Errorf("server responeded with a non 200 code: %d", code)
+			return fmt.Errorf("server responded with a non 200 code: %d", code)
 		}
 	case <-time.After(100 * time.Millisecond):
 		return errors.New("server did not respond in 100 milliseconds")
