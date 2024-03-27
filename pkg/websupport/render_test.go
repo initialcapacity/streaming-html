@@ -18,7 +18,8 @@ func TestRender(t *testing.T) {
 	writer := httptest.ResponseRecorder{Body: new(bytes.Buffer)}
 	data := TestData{Message: "Hello"}
 
-	websupport.Render(&writer, websupport_test.Resources, "test", data)
+	err := websupport.Render(&writer, websupport_test.Resources, "test", data)
+	assert.NoError(t, err)
 
 	body, _ := io.ReadAll(writer.Body)
 	assert.Equal(t, `
