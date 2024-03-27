@@ -2,6 +2,7 @@ package websupport_test
 
 import (
 	"fmt"
+	"github.com/initialcapacity/go-streaming/pkg/testsupport"
 	"github.com/initialcapacity/go-streaming/pkg/websupport"
 	"github.com/stretchr/testify/assert"
 	"io"
@@ -19,8 +20,7 @@ func TestCreate(t *testing.T) {
 	})
 
 	port, _ := server.Start("localhost", 0)
-	err := server.WaitUntilHealthy("/")
-	assert.NoError(t, err)
+	testsupport.AssertHealthy(t, port, "/")
 	defer func(server *websupport.Server) {
 		_ = server.Stop()
 	}(server)
