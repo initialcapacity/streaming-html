@@ -8,7 +8,7 @@ import (
 )
 
 type model struct {
-	Message deferrable.Defer[chan []string]
+	Message deferrable.Value[[]string]
 }
 
 func Index(addArtificialDelay bool) http.HandlerFunc {
@@ -27,6 +27,6 @@ func Index(addArtificialDelay bool) http.HandlerFunc {
 			close(data)
 		}()
 
-		_ = websupport.Render(w, Resources, "index", model{Message: deferrable.New(w, data)})
+		_ = websupport.Render(w, Resources, "index", model{Message: deferrable.NewValue(w, data)})
 	}
 }
