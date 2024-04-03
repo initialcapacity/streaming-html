@@ -19,11 +19,7 @@ func Index(addArtificialDelay bool) http.HandlerFunc {
 			if addArtificialDelay {
 				time.Sleep(1 * time.Second)
 			}
-			data <- []string{
-				"Here's some slower content.",
-				"It took a while to load.",
-				"And didn't use any javascript.",
-			}
+			data <- []string{"Here's some slow content.", "It took a while to load.", "And didn't use any javascript."}
 			close(data)
 		}()
 
