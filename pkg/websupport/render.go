@@ -10,9 +10,11 @@ import (
 func Render(writer http.ResponseWriter, resources fs.FS, templateName string, data any) error {
 	fileName := fmt.Sprintf("%s.gohtml", templateName)
 
-	writer.Header().Set("Transfer-Encoding", "chunked")
-	temp := template.Must(template.New(fileName).
-		ParseFS(resources, "resources/templates/template.gohtml", fmt.Sprintf("resources/templates/%s", fileName)))
+	return template.Must(template.New(fileName).
+		ParseFS(resources, templatePath("template.gohtml"), templatePath(fileName))).
+		Execute(writer, data)
+}
 
-	return temp.Execute(writer, data)
+func templatePath(fileName string) string {
+	return fmt.Sprintf("resources/templates/%s", fileName)
 }
