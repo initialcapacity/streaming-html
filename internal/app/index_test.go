@@ -10,7 +10,7 @@ import (
 )
 
 func TestIndex(t *testing.T) {
-	address, server := testsupport.StartTestServer(t, app.Handlers(false))
+	address, server := testsupport.StartTestServer(t, app.Handlers(immediateWaiter{}))
 	defer testsupport.StopTestServer(t, server)
 
 	response, err := http.Get(address)

@@ -11,14 +11,16 @@ type model struct {
 	Message deferrable.Deferrable[[]string]
 }
 
-func Index(addArtificialDelay bool) http.HandlerFunc {
+type waiter interface {
+	Wait() <-chan time.Time
+}
+
+func Index(delay waiter) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		data := make(chan []string)
 
 		go func() {
-			if addArtificialDelay {
-				time.Sleep(1 * time.Second)
-			}
+			<-delay.Wait()
 			data <- []string{"Here's some slow content.", "It took a while to load.", "And didn't use any javascript."}
 			close(data)
 		}()
