@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-func Handlers(delay waiter) func(mux *http.ServeMux) {
+func Handlers(provider messageProvider) func(mux *http.ServeMux) {
 	return func(mux *http.ServeMux) {
-		mux.HandleFunc("GET /", Index(delay))
+		mux.HandleFunc("GET /", Index(provider))
 		mux.HandleFunc("GET /health", Health)
 
 		static, _ := fs.Sub(Resources, "resources/static")

@@ -7,22 +7,19 @@ import (
 	"io"
 	"net/http"
 	"testing"
-	"time"
 )
 
-type controlledWaiter struct {
-	C chan time.Time
+type controlledProvider struct {
+	MessageChannel chan []string
 }
 
-func (w controlledWaiter) Wait() <-chan time.Time {
-	return w.C
+func (p controlledProvider) FetchAll() []string {
+	return <-p.MessageChannel
 }
 
 func TestIndex(t *testing.T) {
-	delayChannel := make(chan time.Time)
-	waiter := controlledWaiter{C: delayChannel}
-
-	address, server := testsupport.StartTestServer(t, app.Handlers(waiter))
+	messageChannel := make(chan []string)
+	address, server := testsupport.StartTestServer(t, app.Handlers(controlledProvider{MessageChannel: messageChannel}))
 	defer testsupport.StopTestServer(t, server)
 
 	response, err := http.Get(address)
@@ -32,11 +29,12 @@ func TestIndex(t *testing.T) {
 	assert.Contains(t, initialRead, "Streaming HTML")
 	assert.NotContains(t, initialRead, "Success!")
 
-	delayChannel <- time.Now()
+	messageChannel <- []string{"some message"}
 
 	finalRead, err := io.ReadAll(response.Body)
 	assert.NoError(t, err)
 	assert.Contains(t, string(finalRead), "Success!")
+	assert.Contains(t, string(finalRead), "some message")
 }
 
 func readString(t *testing.T, reader io.Reader) string {
