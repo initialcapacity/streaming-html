@@ -12,7 +12,7 @@ func main() {
 	host := websupport.EnvironmentVariable("HOST", "")
 	port := websupport.EnvironmentVariable("PORT", 8777)
 
-	server := websupport.NewServer(app.Handlers(messages.NewProvider(1 * time.Second)))
+	server := websupport.NewServer(app.Handlers(messages.NewProvider(2 * time.Second)))
 
 	_, done := server.Start(host, port)
 	log.Fatal(<-done)
